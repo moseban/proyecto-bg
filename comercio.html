@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configuración de Cuenta & Comercio - Auto Repuestos BG III</title>
+  <!-- Favicon / Logo en pestaña -->
+  <link rel="icon" type="image/jpeg" href="img/logo.jpg">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="img/logo.jpg">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="css/styles.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              500: '#8b5cf6',
+              600: '#7036ee',
+              700: '#5f2ad3',
+            },
+            coral: {
+              400: '#ff8a70',
+              500: '#ff7657',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#f7f8fc] text-slate-800 antialiased min-h-screen flex flex-col">
+
+  <!-- ==================== HEADER SUPERIOR ==================== -->
+  <header class="bg-white border-b border-slate-100 h-16 sticky top-0 z-30 px-4 md:px-6 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <button id="sidebarToggleBtn" class="p-2 rounded-lg hover:bg-slate-100 text-slate-600 transition" aria-label="Abrir menú">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+
+      <a href="index.html" class="flex items-center gap-2.5 select-none group">
+        <img src="img/logo.jpg" alt="Logo Auto Repuestos BG III" class="w-8 h-8 rounded-full object-cover border border-slate-200 shadow-sm group-hover:scale-105 transition-transform">
+        <div class="flex items-center">
+          <span class="text-[#7036ee] font-black text-xl tracking-tighter">///</span>
+          <span class="text-[#7036ee] font-extrabold text-xl tracking-tight ml-1">BG</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <button class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-200 flex items-center justify-center text-slate-600 transition shadow-sm" aria-label="Perfil de usuario">
+        <i data-lucide="user" class="w-5 h-5"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== CONTENEDOR PRINCIPAL ==================== -->
+  <div class="flex flex-1 relative overflow-hidden">
+    <div id="sidebarBackdrop" class="fixed inset-0 bg-slate-900/40 z-30 hidden md:hidden transition-opacity"></div>
+
+    <!-- ==================== SIDEBAR ==================== -->
+    <aside id="sidebar" class="fixed md:static inset-y-0 left-0 top-16 md:top-0 z-40 w-64 bg-white border-r border-slate-100 flex flex-col justify-between p-4 transition-transform duration-300 transform -translate-x-full md:translate-x-0 h-[calc(100vh-4rem)] overflow-y-auto">
+      <div class="space-y-6">
+        <button class="btn-open-sale-modal w-full bg-[#7036ee] hover:bg-[#5f2ad3] text-white font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 shadow-md shadow-purple-500/20 transition-all active:scale-[0.98]">
+          <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+          <span>Nueva venta</span>
+        </button>
+
+        <!-- Sección HOME -->
+        <div>
+          <span class="text-[11px] font-bold text-slate-400 tracking-wider uppercase px-3">HOME</span>
+          <nav class="mt-2 space-y-1">
+            <a href="index.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition">
+              <i data-lucide="home" class="w-4 h-4 text-slate-400"></i>
+              <span>Home</span>
+            </a>
+          </nav>
+        </div>
+
+        <!-- Sección MÓDULOS -->
+        <div>
+          <span class="text-[11px] font-bold text-slate-400 tracking-wider uppercase px-3">MÓDULOS</span>
+          <nav class="mt-2 space-y-1">
+            <!-- Ventas -->
+            <div class="space-y-1">
+              <button class="sidebar-dropdown-btn w-full flex items-center justify-between px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition cursor-pointer" data-dropdown-target="ventasSubmenu">
+                <div class="flex items-center gap-3">
+                  <i data-lucide="shopping-cart" class="w-4 h-4 text-slate-400"></i>
+                  <span>Ventas</span>
+                </div>
+                <i data-lucide="chevron-right" class="dropdown-chevron w-4 h-4 text-slate-400 transition-transform duration-200"></i>
+              </button>
+              <div id="ventasSubmenu" class="submenu-tree space-y-1 py-1 hidden">
+                <a href="ventas.html" class="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-[#7036ee] rounded-lg transition">Nueva venta</a>
+                <a href="canales-ventas.html" class="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 rounded-lg transition">Canales de ventas</a>
+              </div>
+            </div>
+
+            <!-- Inventario -->
+            <div class="space-y-1">
+              <button class="sidebar-dropdown-btn w-full flex items-center justify-between px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition cursor-pointer" data-dropdown-target="inventarioSubmenu">
+                <div class="flex items-center gap-3">
+                  <i data-lucide="package" class="w-4 h-4 text-slate-400"></i>
+                  <span>Inventario</span>
+                </div>
+                <i data-lucide="chevron-right" class="dropdown-chevron w-4 h-4 text-slate-400 transition-transform duration-200"></i>
+              </button>
+              <div id="inventarioSubmenu" class="submenu-tree space-y-1 py-1 hidden">
+                <a href="inventario.html" class="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-[#7036ee] rounded-lg transition">Inventario</a>
+                <a href="recetas-combos.html" class="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 rounded-lg transition">Recetas/Combos</a>
+                <a href="registros-inventario.html" class="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 rounded-lg transition">Registros</a>
+              </div>
+            </div>
+
+            <!-- Cuentas -->
+            <a href="cuentas.html" class="flex items-center justify-between px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition">
+              <div class="flex items-center gap-3">
+                <i data-lucide="credit-card" class="w-4 h-4 text-slate-400"></i>
+                <span>Cuentas</span>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+            </a>
+
+            <!-- Resumen Financiero -->
+            <div class="space-y-1">
+              <button class="sidebar-dropdown-btn w-full flex items-center justify-between px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition cursor-pointer" data-dropdown-target="finanzasSubmenu">
+                <div class="flex items-center gap-2.5">
+                  <i data-lucide="file-text" class="w-4 h-4 text-slate-400"></i>
+                  <span>Resumen Financiero</span>
+                  <span class="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border-[1.5px] border-[#7036ee]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#7036ee]"></span>
+                  </span>
+                </div>
+                <i data-lucide="chevron-right" class="dropdown-chevron w-4 h-4 text-slate-400 transition-transform duration-200"></i>
+              </button>
+              <div id="finanzasSubmenu" class="submenu-tree space-y-1 py-1 hidden">
+                <a href="resumen-financiero.html" class="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-[#7036ee] rounded-lg transition">Utilidad/Perdida</a>
+                <a href="gastos.html" class="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 rounded-lg transition">Gastos fijos/variables</a>
+                <a href="reportes.html" class="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 rounded-lg transition">Reportes</a>
+              </div>
+            </div>
+          </nav>
+        </div>
+
+        <!-- CONFIGURACIÓN (Activo Cuenta) -->
+        <div>
+          <span class="text-[11px] font-bold text-slate-400 tracking-wider uppercase px-3">CONFIGURACIÓN</span>
+          <nav class="mt-2 space-y-1">
+            <a href="comercio.html" class="flex items-center justify-between px-3 py-2 rounded-xl text-sm font-bold text-[#7036ee] bg-purple-50/70 border border-purple-100/50 transition">
+              <div class="flex items-center gap-3">
+                <i data-lucide="user" class="w-4 h-4 text-[#7036ee]"></i>
+                <span>Cuenta</span>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-[#7036ee]"></i>
+            </a>
+          </nav>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-slate-100 text-xs text-slate-400 text-center">
+        <span>BG Cloud v2.4</span>
+      </div>
+    </aside>
+
+    <!-- ==================== CONTENIDO PRINCIPAL: CONFIGURACIÓN CUENTA & COMERCIO ==================== -->
+    <main class="flex-1 p-4 md:p-8 overflow-y-auto max-w-[1400px] mx-auto w-full">
+
+      <!-- Título de sección y Estado DB -->
+      <div class="flex items-center justify-between mb-6 flex-wrap gap-3">
+        <div class="flex items-center gap-3">
+          <div class="flex items-center gap-2">
+            <i data-lucide="store" class="w-5 h-5 text-slate-700"></i>
+            <h1 class="text-base md:text-lg font-extrabold text-slate-800 tracking-wider uppercase">CONFIGURACIÓN DE CUENTA & COMERCIO</h1>
+          </div>
+          <div id="dbStatusBadge" class="bg-emerald-50 text-emerald-700 font-semibold text-xs py-1.5 px-3 rounded-full border border-emerald-200 flex items-center gap-1.5 shadow-2xs">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Supabase Conectado</span>
+          </div>
+        </div>
+        <a href="#" class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#7036ee] hover:underline bg-purple-50 px-2.5 py-1 rounded-full border border-purple-100">
+          <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+          <span>Ayuda</span>
+        </a>
+      </div>
+
+      <!-- Fila 1: Botones de Acción -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-6">
+        <button id="btnGuardarConfiguracion" class="w-full bg-[#7036ee] hover:bg-[#5f2ad3] text-white font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-sm shadow-xs transition active:scale-[0.98] cursor-pointer">
+          <i data-lucide="save" class="w-4 h-4"></i>
+          <span>Guardar Cambios</span>
+        </button>
+
+        <button id="btnPrinterConfig" class="w-full bg-white hover:bg-purple-50/50 text-[#7036ee] border border-[#7036ee] font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-sm transition active:scale-[0.98] cursor-pointer">
+          <i data-lucide="printer" class="w-4 h-4"></i>
+          <span>Impresora Térmica POS</span>
+        </button>
+
+        <button id="btnBcvConfig" class="w-full bg-white hover:bg-purple-50/50 text-[#7036ee] border border-[#7036ee] font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-sm transition active:scale-[0.98] cursor-pointer">
+          <i data-lucide="coins" class="w-4 h-4"></i>
+          <span>Tasa de Cambio (BCV)</span>
+        </button>
+
+        <button id="btnRolesConfig" class="btn-coral-gradient w-full text-white font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-sm shadow-xs transition active:scale-[0.98] cursor-pointer">
+          <i data-lucide="shield-check" class="w-4 h-4"></i>
+          <span>Roles y Permisos</span>
+        </button>
+      </div>
+
+      <!-- Formulario de Configuración -->
+      <form id="configForm" class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
+
+        <!-- Columna 1 & 2: Datos Comerciales y Fiscales -->
+        <div class="lg:col-span-2 space-y-6">
+          <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
+            <h2 class="text-base font-bold text-slate-800 mb-4 pb-2 border-b border-slate-100 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <i data-lucide="building" class="w-4 h-4 text-[#7036ee]"></i>
+                <span>Datos Generales del Establecimiento</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <img src="img/logo.jpg" alt="Logo de la Empresa" class="w-8 h-8 rounded-full object-cover border border-slate-200 shadow-xs">
+                <span class="text-[11px] font-semibold text-slate-500">Logo de la Empresa</span>
+              </div>
+            </h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1" for="configNombreComercial">Nombre Comercial *</label>
+                <input type="text" id="configNombreComercial" required value="Auto Repuestos BG III C.A." class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition font-medium">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1" for="configRif">Identificación Fiscal / RIF *</label>
+                <input type="text" id="configRif" required value="J-40615751-1" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition font-medium">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1" for="configTelefono">Teléfono WhatsApp de Atención</label>
+                <input type="text" id="configTelefono" value="+58 412-1234567" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition font-medium">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1" for="configEmail">Correo Electrónico de Contacto</label>
+                <input type="email" id="configEmail" value="autorepuestosbg3@gmail.com" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition font-medium">
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-xs font-semibold text-slate-600 mb-1" for="configDireccion">Dirección Comercial Completa</label>
+                <input type="text" id="configDireccion" value="Calle Principal, Local Auto Repuestos BG III" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition font-medium">
+              </div>
+            </div>
+          </div>
+
+          <!-- Parámetros de Moneda y Facturación -->
+          <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
+            <h2 class="text-base font-bold text-slate-800 mb-4 pb-2 border-b border-slate-100 flex items-center gap-2">
+              <i data-lucide="circle-dollar-sign" class="w-4 h-4 text-[#7036ee]"></i>
+              <span>Moneda, Divisas e Impuestos</span>
+            </h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1" for="configMoneda">Moneda Base</label>
+                <select id="configMoneda" class="w-full text-sm px-3 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+                  <option value="USD" selected>USD ($ Dólar Americano)</option>
+                  <option value="VES">VES (Bs. Bolívar)</option>
+                  <option value="EUR">EUR (€ Euro)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1" for="configTasaCambio">Tasa de Cambio (Bs./$)</label>
+                <input type="number" step="0.01" min="0.01" id="configTasaCambio" value="39.50" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition font-medium">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1" for="configIva">Alícuota IVA (%)</label>
+                <input type="number" step="0.01" min="0" max="100" id="configIva" value="16.00" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition font-medium">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna 3: Información de Plan y Usuarios -->
+        <div class="space-y-6">
+          <div class="bg-gradient-to-br from-[#7439ee] to-[#8c4bf8] text-white rounded-2xl p-6 shadow-sm">
+            <span class="text-xs font-semibold text-purple-200 uppercase tracking-wider">Plan Activo</span>
+            <h3 class="text-2xl font-black mt-1">BG Cloud Pro</h3>
+            <p class="text-xs text-purple-100 mt-2">Módulos ilimitados de Inventario, Ventas, Cuentas y Resumen Financiero conectados a Supabase.</p>
+            <div class="mt-4 pt-4 border-t border-white/20 flex justify-between text-xs">
+              <span>Estado en nube:</span>
+              <span class="font-bold text-emerald-300 flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Activo</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
+            <h3 class="text-sm font-bold text-slate-800 mb-3">Colaboradores con Acceso</h3>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between text-xs">
+                <div class="flex items-center gap-2">
+                  <div class="w-7 h-7 rounded-full bg-purple-100 text-[#7036ee] flex items-center justify-center font-bold">G</div>
+                  <div>
+                    <p class="font-bold text-slate-800">Gabriel (Tú)</p>
+                    <p class="text-[11px] text-slate-400">Administrador General</p>
+                  </div>
+                </div>
+                <span class="px-2 py-0.5 rounded-md bg-purple-50 text-[#7036ee] font-semibold text-[11px]">Propietario</span>
+              </div>
+              <div class="flex items-center justify-between text-xs">
+                <div class="flex items-center gap-2">
+                  <div class="w-7 h-7 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center font-bold">M</div>
+                  <div>
+                    <p class="font-bold text-slate-800">María F.</p>
+                    <p class="text-[11px] text-slate-400">Caja y Ventas</p>
+                  </div>
+                </div>
+                <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 font-semibold text-[11px]">Cajero</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </form>
+
+    </main>
+  </div>
+
+  <!-- ==================== MODAL: IMPRESORA TÉRMICA POS ==================== -->
+  <div id="modalPrinterConfig" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs hidden">
+    <div class="modal-content-box bg-white rounded-2xl shadow-2xl border border-slate-100 w-full max-w-md p-6 transform scale-95 opacity-0 transition-all duration-200">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-purple-100 text-[#7036ee] flex items-center justify-center">
+            <i data-lucide="printer" class="w-4 h-4"></i>
+          </div>
+          <h3 class="text-base font-bold text-slate-800">Impresora Térmica POS</h3>
+        </div>
+        <button id="closePrinterModalBtn" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg cursor-pointer">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="mt-4 space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1" for="printerPaperWidth">Formato de Papel</label>
+          <select id="printerPaperWidth" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white">
+            <option value="80mm" selected>Papel Térmico Estándar 80mm</option>
+            <option value="58mm">Papel Térmico Compacto 58mm</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1" for="printerTicketFooter">Pie de Ticket / Mensaje de Despedida</label>
+          <textarea id="printerTicketFooter" rows="2" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee]">¡Gracias por su compra en Gabriel Shop! Vuelva pronto.</textarea>
+        </div>
+        <div class="p-3 bg-purple-50/70 border border-purple-100 rounded-xl text-xs text-purple-900 flex items-center justify-between">
+          <span>Vista de impresión:</span>
+          <button type="button" id="btnTestPrint" class="bg-[#7036ee] hover:bg-[#5f2ad3] text-white px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer">
+            <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+            <span>Ticket de Prueba</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100 mt-4">
+        <button type="button" id="savePrinterModalBtn" class="px-5 py-2 bg-[#7036ee] hover:bg-[#5f2ad3] text-white text-sm font-semibold rounded-xl shadow-md transition cursor-pointer">Guardar Ajustes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: TASA DE CAMBIO BCV ==================== -->
+  <div id="modalBcvConfig" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs hidden">
+    <div class="modal-content-box bg-white rounded-2xl shadow-2xl border border-slate-100 w-full max-w-md p-6 transform scale-95 opacity-0 transition-all duration-200">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center">
+            <i data-lucide="coins" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-slate-800">Tasa de Cambio Oficial (BCV)</h3>
+            <p class="text-xs text-slate-400">Conversor y actualización rápida</p>
+          </div>
+        </div>
+        <button id="closeBcvModalBtn" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg cursor-pointer">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="mt-4 space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1" for="modalTasaInput">Tasa Actual (Bs. por 1 USD)</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 font-bold text-xs">Bs.</span>
+            <input type="number" step="0.01" min="0.01" id="modalTasaInput" value="39.50" class="w-full text-base font-extrabold pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 text-[#7036ee] focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee]">
+          </div>
+        </div>
+
+        <!-- Calculadora Rápida -->
+        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-100 space-y-2">
+          <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Calculadora Rápida</span>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div>
+              <span class="text-slate-500">Monto en $:</span>
+              <input type="number" step="0.5" id="calcUsdInput" value="10" class="w-full mt-1 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white font-bold">
+            </div>
+            <div>
+              <span class="text-slate-500">Equivalente en Bs.:</span>
+              <div id="calcBsOutput" class="mt-1 px-2.5 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 font-extrabold">Bs. 395.00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100 mt-4">
+        <button type="button" id="applyBcvRateBtn" class="px-5 py-2 bg-[#7036ee] hover:bg-[#5f2ad3] text-white text-sm font-semibold rounded-xl shadow-md transition cursor-pointer">Aplicar Tasa</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: ROLES Y PERMISOS ==================== -->
+  <div id="modalRolesConfig" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs hidden">
+    <div class="modal-content-box bg-white rounded-2xl shadow-2xl border border-slate-100 w-full max-w-lg p-6 transform scale-95 opacity-0 transition-all duration-200">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-rose-100 text-coral-500 flex items-center justify-center">
+            <i data-lucide="shield-check" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-slate-800">Roles y Niveles de Acceso</h3>
+            <p class="text-xs text-slate-400">Seguridad del sistema BG</p>
+          </div>
+        </div>
+        <button id="closeRolesModalBtn" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg cursor-pointer">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="mt-4 space-y-3">
+        <div class="p-3 rounded-xl border border-purple-100 bg-purple-50/50 flex items-start gap-3">
+          <div class="w-8 h-8 rounded-full bg-[#7036ee] text-white font-bold flex items-center justify-center text-xs shrink-0 mt-0.5">G</div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h4 class="font-bold text-slate-900 text-xs">Administrador General (Gabriel)</h4>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#7036ee] text-white">Propietario</span>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">Acceso total sin restricciones: Ventas, Inventario (Kardex), Resumen Financiero P&L, Gastos, Cuentas y Configuración General de Supabase.</p>
+          </div>
+        </div>
+
+        <div class="p-3 rounded-xl border border-slate-100 bg-white flex items-start gap-3">
+          <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-600 font-bold flex items-center justify-center text-xs shrink-0 mt-0.5">C</div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h4 class="font-bold text-slate-900 text-xs">Cajero / Vendedor</h4>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 text-slate-700">Operativo</span>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">Permiso para registrar ventas rápidas, imprimir tickets y cobros. Sin acceso a Estados Financieros ni configuración del sistema.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end pt-3 border-t border-slate-100 mt-4">
+        <button type="button" id="closeRolesActionBtn" class="px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-100 transition cursor-pointer">Entendido</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botón Flotante Chat -->
+  <button id="chatFloatingBtn" class="chat-floating-btn fixed bottom-6 right-6 w-12 h-12 rounded-full text-white flex items-center justify-center z-40 transition cursor-pointer" aria-label="Soporte y Chat">
+    <i data-lucide="message-square" class="w-5 h-5"></i>
+  </button>
+
+  <!-- Scripts -->
+  <!-- SDK de Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Cliente y métodos de BG -->
+  <script src="js/supabase-client.js"></script>
+  <!-- Lógica de interfaz general -->
+  <script src="js/app.js"></script>
+</body>
+</html>
+

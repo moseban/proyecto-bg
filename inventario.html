@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventario General - Auto Repuestos BG III</title>
+  <!-- Favicon / Logo en pestaña -->
+  <link rel="icon" type="image/jpeg" href="img/logo.jpg">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="img/logo.jpg">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="css/styles.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              500: '#8b5cf6',
+              600: '#7036ee',
+              700: '#5f2ad3',
+            },
+            coral: {
+              400: '#ff8a70',
+              500: '#ff7657',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#f7f8fc] text-slate-800 antialiased min-h-screen flex flex-col">
+
+  <!-- ==================== HEADER SUPERIOR ==================== -->
+  <header class="bg-white border-b border-slate-100 h-16 sticky top-0 z-30 px-4 md:px-6 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <!-- Botón Hamburguesa Móvil -->
+      <button id="sidebarToggleBtn" class="p-2 rounded-lg hover:bg-slate-100 text-slate-600 transition" aria-label="Abrir menú">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+
+      <!-- Logo BG -->
+      <a href="index.html" class="flex items-center gap-2.5 select-none group">
+        <img src="img/logo.jpg" alt="Logo Auto Repuestos BG III" class="w-8 h-8 rounded-full object-cover border border-slate-200 shadow-sm group-hover:scale-105 transition-transform">
+        <div class="flex items-center">
+          <span class="text-[#7036ee] font-black text-xl tracking-tighter">///</span>
+          <span class="text-[#7036ee] font-extrabold text-xl tracking-tight ml-1">BG</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Menú de Usuario / Perfil -->
+    <div class="flex items-center gap-3">
+      <button class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-200 flex items-center justify-center text-slate-600 transition shadow-sm" aria-label="Perfil de usuario">
+        <i data-lucide="user" class="w-5 h-5"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== CONTENEDOR PRINCIPAL ==================== -->
+  <div class="flex flex-1 relative overflow-hidden">
+
+    <!-- Backdrop para móvil -->
+    <div id="sidebarBackdrop" class="fixed inset-0 bg-slate-900/40 z-30 hidden md:hidden transition-opacity"></div>
+
+    <!-- ==================== SIDEBAR ==================== -->
+    <aside id="sidebar" class="fixed md:static inset-y-0 left-0 top-16 md:top-0 z-40 w-64 bg-white border-r border-slate-100 flex flex-col justify-between p-4 transition-transform duration-300 transform -translate-x-full md:translate-x-0 h-[calc(100vh-4rem)] overflow-y-auto">
+      <div class="space-y-6">
+        <!-- Botón Nueva Venta en Sidebar -->
+        <button class="btn-open-sale-modal w-full bg-[#7036ee] hover:bg-[#5f2ad3] text-white font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 shadow-md shadow-purple-500/20 transition-all active:scale-[0.98]">
+          <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+          <span>Nueva venta</span>
+        </button>
+
+        <!-- Sección HOME -->
+        <div>
+          <span class="text-[11px] font-bold text-slate-400 tracking-wider uppercase px-3">HOME</span>
+          <nav class="mt-2 space-y-1">
+            <a href="index.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition">
+              <i data-lucide="home" class="w-4 h-4 text-slate-400"></i>
+              <span>Home</span>
+            </a>
+          </nav>
+        </div>
+
+        <!-- Sección MÓDULOS -->
+        <div>
+          <span class="text-[11px] font-bold text-slate-400 tracking-wider uppercase px-3">MÓDULOS</span>
+          <nav class="mt-2 space-y-1">
+            <!-- MÓDULO VENTAS -->
+            <div class="space-y-1">
+              <button class="sidebar-dropdown-btn w-full flex items-center justify-between px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition cursor-pointer" data-dropdown-target="ventasSubmenu">
+                <div class="flex items-center gap-3">
+                  <i data-lucide="shopping-cart" class="w-4 h-4 text-slate-400"></i>
+                  <span>Ventas</span>
+                </div>
+                <i data-lucide="chevron-right" class="dropdown-chevron w-4 h-4 text-slate-400 transition-transform duration-200"></i>
+              </button>
+
+              <div id="ventasSubmenu" class="submenu-tree space-y-1 py-1 hidden">
+                <a href="ventas.html" class="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-[#7036ee] rounded-lg transition">
+                  Nueva venta
+                </a>
+                <a href="canales-ventas.html" class="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 rounded-lg transition">
+                  Canales de ventas
+                </a>
+              </div>
+            </div>
+
+            <!-- Módulo Inventario (Abierto por defecto) -->
+            <div class="space-y-1">
+              <button class="sidebar-dropdown-btn w-full flex items-center justify-between px-3 py-2 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-50 transition cursor-pointer" data-dropdown-target="inventarioSubmenu">
+                <div class="flex items-center gap-3">
+                  <i data-lucide="package" class="w-4 h-4 text-[#7036ee]"></i>
+                  <span class="text-[#7036ee]">Inventario</span>
+                </div>
+                <i data-lucide="chevron-down" class="dropdown-chevron w-4 h-4 text-slate-400 transition-transform duration-200"></i>
+              </button>
+
+              <!-- Submenú desplegable -->
+              <div id="inventarioSubmenu" class="submenu-tree space-y-1 py-1">
+                <a href="inventario.html" class="block px-3 py-1.5 text-xs font-bold text-[#7036ee] bg-purple-50/60 rounded-lg transition">
+                  Inventario
+                </a>
+                <a href="recetas-combos.html" class="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 rounded-lg transition">
+                  Recetas/Combos
+                </a>
+                <a href="registros-inventario.html" class="flex items-center justify-between px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 rounded-lg transition">
+                  <span>Registros</span>
+                  <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- CUENTAS -->
+            <a href="cuentas.html" class="flex items-center justify-between px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition">
+              <div class="flex items-center gap-3">
+                <i data-lucide="credit-card" class="w-4 h-4 text-slate-400"></i>
+                <span>Cuentas</span>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+            </a>
+
+            <!-- MÓDULO RESUMEN FINANCIERO -->
+            <div class="space-y-1">
+              <button class="sidebar-dropdown-btn w-full flex items-center justify-between px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition cursor-pointer" data-dropdown-target="finanzasSubmenu">
+                <div class="flex items-center gap-2.5">
+                  <i data-lucide="file-text" class="w-4 h-4 text-slate-400"></i>
+                  <span>Resumen Financiero</span>
+                  <!-- Círculo concéntrico púrpura (o) -->
+                  <span class="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border-[1.5px] border-[#7036ee]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#7036ee]"></span>
+                  </span>
+                </div>
+                <i data-lucide="chevron-right" class="dropdown-chevron w-4 h-4 text-slate-400 transition-transform duration-200"></i>
+              </button>
+
+              <div id="finanzasSubmenu" class="submenu-tree space-y-1 py-1 hidden">
+                <a href="resumen-financiero.html" class="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-[#7036ee] rounded-lg transition">
+                  Utilidad/Perdida
+                </a>
+                <a href="gastos.html" class="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 rounded-lg transition">
+                  Gastos fijos/variables
+                </a>
+                <a href="reportes.html" class="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 rounded-lg transition">
+                  Reportes
+                </a>
+              </div>
+            </div>
+          </nav>
+        </div>
+
+        <!-- Sección CONFIGURACIÓN -->
+        <div>
+          <span class="text-[11px] font-bold text-slate-400 tracking-wider uppercase px-3">CONFIGURACIÓN</span>
+          <nav class="mt-2 space-y-1">
+            <a href="comercio.html" class="flex items-center justify-between px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition">
+              <div class="flex items-center gap-3">
+                <i data-lucide="user" class="w-4 h-4 text-slate-400"></i>
+                <span>Cuenta</span>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+            </a>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Pie de página de sidebar -->
+      <div class="pt-4 border-t border-slate-100 text-xs text-slate-400 text-center">
+        <span>BG Cloud v2.4</span>
+      </div>
+    </aside>
+
+    <!-- ==================== CONTENIDO PRINCIPAL: INVENTARIO ==================== -->
+    <main class="flex-1 p-4 md:p-8 overflow-y-auto max-w-[1400px] mx-auto w-full">
+
+      <!-- Título de sección: INVENTARIO y Ayuda -->
+      <div class="flex items-center gap-3 mb-6">
+        <div class="flex items-center gap-2">
+          <i data-lucide="box" class="w-5 h-5 text-slate-700"></i>
+          <h1 class="text-base md:text-lg font-extrabold text-slate-800 tracking-wider uppercase">INVENTARIO</h1>
+        </div>
+        <a href="#" class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#7036ee] hover:underline bg-purple-50 px-2.5 py-1 rounded-full border border-purple-100">
+          <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+          <span>Ayuda</span>
+        </a>
+      </div>
+
+      <!-- ==================== FILA 1: BOTONES DE ACCIÓN ==================== -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-6">
+        <!-- Botón 1: Carga masiva de inventario -->
+        <button id="bulkUploadBtn" class="w-full bg-[#7036ee] hover:bg-[#5f2ad3] text-white font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-sm shadow-xs transition active:scale-[0.98]">
+          <i data-lucide="arrow-down-to-line" class="w-4 h-4"></i>
+          <span>Carga masiva de inventario</span>
+        </button>
+
+        <!-- Botón 2: Fabricar receta/combo -->
+        <button id="recipeBtn" class="w-full bg-white hover:bg-purple-50/50 text-[#7036ee] border border-[#7036ee] font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-sm transition active:scale-[0.98]">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+          <span>Fabricar receta/combo</span>
+        </button>
+
+        <!-- Botón 3: Salida de inventario -->
+        <button id="stockOutBtn" class="w-full bg-white hover:bg-purple-50/50 text-[#7036ee] border border-[#7036ee] font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-sm transition active:scale-[0.98]">
+          <i data-lucide="arrow-up" class="w-4 h-4"></i>
+          <span>Salida de inventario</span>
+        </button>
+
+        <!-- Botón 4: Ingreso a inventario -->
+        <button id="openIngressModalBtn" class="btn-coral-gradient w-full text-white font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-sm shadow-xs transition active:scale-[0.98]">
+          <i data-lucide="arrow-down" class="w-4 h-4"></i>
+          <span>Ingreso a inventario</span>
+        </button>
+      </div>
+
+      <!-- ==================== FILA 2: RESUMEN DE VALORES Y ACCIONES ==================== -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <!-- Píldoras de Valor en Inventario y Estado DB -->
+        <div class="flex flex-wrap items-center gap-2.5">
+          <div class="bg-[#f2edfe] text-[#6425ea] font-semibold text-xs py-2 px-3.5 rounded-full border border-purple-100 flex items-center gap-1.5">
+            <span>Valor en inventario:</span>
+            <span id="invCostVal" class="font-bold text-[#551bce]">$6,102.50</span>
+          </div>
+
+          <div class="bg-[#f2edfe] text-[#6425ea] font-semibold text-xs py-2 px-3.5 rounded-full border border-purple-100 flex items-center gap-1.5">
+            <span>Valor en precio de venta:</span>
+            <span id="invSaleVal" class="font-bold text-[#551bce]">$6,977.40</span>
+          </div>
+
+          <div id="dbStatusBadge" class="bg-emerald-50 text-emerald-700 font-semibold text-xs py-1.5 px-3 rounded-full border border-emerald-200 flex items-center gap-1.5 shadow-2xs">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Supabase Conectado</span>
+          </div>
+        </div>
+
+        <!-- Botones Reporte y Traslado -->
+        <div class="flex items-center gap-2.5">
+          <button id="downloadReportBtn" class="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-medium text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5 shadow-2xs transition">
+            <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5 text-slate-500"></i>
+            <span>Descargar reporte</span>
+          </button>
+
+          <button class="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-medium text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5 shadow-2xs transition">
+            <i data-lucide="arrow-left-right" class="w-3.5 h-3.5 text-slate-500"></i>
+            <span>Traslado de inventario</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ==================== FILA 3: BUSCADOR Y FILTROS ==================== -->
+      <div class="flex items-center gap-3 mb-5">
+        <!-- Campo de Búsqueda -->
+        <div class="relative flex-1 max-w-md">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+          <input type="text" id="inventorySearchInput" placeholder="Buscar items..." class="w-full text-sm pl-10 pr-4 py-2 bg-white rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7036ee]/25 focus:border-[#7036ee] transition shadow-2xs">
+        </div>
+
+        <!-- Botón Filtros -->
+        <button class="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-medium text-xs py-2 px-3.5 rounded-xl flex items-center gap-2 shadow-2xs transition">
+          <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5 text-slate-500"></i>
+          <span>Filtros</span>
+        </button>
+      </div>
+
+      <!-- ==================== TABLA DE INVENTARIO ==================== -->
+      <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden mb-12">
+        <div class="overflow-x-auto">
+          <table id="inventoryTable" class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-slate-100 text-slate-500 font-semibold text-xs">
+                <th class="py-3 px-4">Nombre</th>
+                <th class="py-3 px-4 text-center">SKU</th>
+                <th class="py-3 px-4 text-center">Categoría</th>
+                <th class="py-3 px-4 text-right">Costo unitario</th>
+                <th class="py-3 px-4 text-right">Cantidad</th>
+                <th class="py-3 px-4 text-right">Valor en inventario</th>
+                <th class="py-3 px-4 text-right"></th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-xs md:text-sm">
+              <!-- Item 1: Amortiguador X -->
+              <tr class="hover:bg-slate-50/70 transition">
+                <td class="py-3.5 px-4 font-semibold text-slate-800">Amortiguador X</td>
+                <td class="py-3.5 px-4 text-center text-slate-400">--</td>
+                <td class="py-3.5 px-4 text-center text-slate-400">--</td>
+                <td class="py-3.5 px-4 text-right text-slate-600">60,00/Und.</td>
+                <td class="py-3.5 px-4 text-right text-slate-700">26,9 Und.</td>
+                <td class="py-3.5 px-4 text-right font-bold text-slate-800">$1,614.00</td>
+                <td class="py-3.5 px-4 text-right">
+                  <div class="flex items-center justify-end gap-2 text-slate-400">
+                    <span class="inline-flex p-1 rounded-md text-[#7036ee] bg-purple-50" title="Alerta de inventario">
+                      <i data-lucide="package-search" class="w-4 h-4"></i>
+                    </span>
+                    <button class="p-1 hover:text-slate-600 transition" title="Opciones">
+                      <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Item 2: Respuesto X -->
+              <tr class="hover:bg-slate-50/70 transition">
+                <td class="py-3.5 px-4 font-semibold text-slate-800">Respuesto X</td>
+                <td class="py-3.5 px-4 text-center text-slate-400">--</td>
+                <td class="py-3.5 px-4 text-center text-slate-400">--</td>
+                <td class="py-3.5 px-4 text-right text-slate-600">20,00/Und.</td>
+                <td class="py-3.5 px-4 text-right text-slate-700">5 Und.</td>
+                <td class="py-3.5 px-4 text-right font-bold text-slate-800">$100.00</td>
+                <td class="py-3.5 px-4 text-right">
+                  <div class="flex items-center justify-end gap-2 text-slate-400">
+                    <button class="p-1 hover:text-[#7036ee] transition">
+                      <i data-lucide="package" class="w-4 h-4 text-[#7036ee]"></i>
+                    </button>
+                    <button class="p-1 hover:text-slate-600 transition">
+                      <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Item 3: Hielo -->
+              <tr class="hover:bg-slate-50/70 transition">
+                <td class="py-3.5 px-4 font-semibold text-slate-800">Hielo</td>
+                <td class="py-3.5 px-4 text-center text-slate-400">--</td>
+                <td class="py-3.5 px-4 text-center text-slate-400">--</td>
+                <td class="py-3.5 px-4 text-right text-slate-600">0,60/Und.</td>
+                <td class="py-3.5 px-4 text-right text-slate-700">463 Und.</td>
+                <td class="py-3.5 px-4 text-right font-bold text-slate-800">$277.80</td>
+                <td class="py-3.5 px-4 text-right">
+                  <div class="flex items-center justify-end gap-2 text-slate-400">
+                    <button class="p-1 hover:text-[#7036ee] transition">
+                      <i data-lucide="package" class="w-4 h-4 text-[#7036ee]"></i>
+                    </button>
+                    <button class="p-1 hover:text-slate-600 transition">
+                      <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Item 4: Tela Gabriel -->
+              <tr class="hover:bg-slate-50/70 transition">
+                <td class="py-3.5 px-4 font-semibold text-slate-800">Tela Gabriel</td>
+                <td class="py-3.5 px-4 text-center text-slate-400">--</td>
+                <td class="py-3.5 px-4 text-center text-slate-400">--</td>
+                <td class="py-3.5 px-4 text-right text-slate-600">4,00/mts.</td>
+                <td class="py-3.5 px-4 text-right text-slate-700">30 mts.</td>
+                <td class="py-3.5 px-4 text-right font-bold text-slate-800">$120.00</td>
+                <td class="py-3.5 px-4 text-right">
+                  <div class="flex items-center justify-end gap-2 text-slate-400">
+                    <button class="p-1 hover:text-[#7036ee] transition">
+                      <i data-lucide="package" class="w-4 h-4 text-[#7036ee]"></i>
+                    </button>
+                    <button class="p-1 hover:text-slate-600 transition">
+                      <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Item 5: Madera -->
+              <tr class="hover:bg-slate-50/70 transition">
+                <td class="py-3.5 px-4 font-semibold text-slate-800">Madera</td>
+                <td class="py-3.5 px-4 text-center text-slate-400">--</td>
+                <td class="py-3.5 px-4 text-center text-slate-400">--</td>
+                <td class="py-3.5 px-4 text-right text-slate-600">8,00/mts.</td>
+                <td class="py-3.5 px-4 text-right text-slate-700">80 mts.</td>
+                <td class="py-3.5 px-4 text-right font-bold text-slate-800">$640.00</td>
+                <td class="py-3.5 px-4 text-right">
+                  <div class="flex items-center justify-end gap-2 text-slate-400">
+                    <button class="p-1 hover:text-[#7036ee] transition">
+                      <i data-lucide="package" class="w-4 h-4 text-[#7036ee]"></i>
+                    </button>
+                    <button class="p-1 hover:text-slate-600 transition">
+                      <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Item 6: Retrovisor X -->
+              <tr class="hover:bg-slate-50/70 transition">
+                <td class="py-3.5 px-4 font-semibold text-slate-800">Retrovisor X</td>
+                <td class="py-3.5 px-4 text-center text-slate-400">--</td>
+                <td class="py-3.5 px-4 text-center text-slate-400">--</td>
+                <td class="py-3.5 px-4 text-right text-slate-600">30,00/Und.</td>
+                <td class="py-3.5 px-4 text-right text-slate-700">6 Und.</td>
+                <td class="py-3.5 px-4 text-right font-bold text-slate-800">$180.00</td>
+                <td class="py-3.5 px-4 text-right">
+                  <div class="flex items-center justify-end gap-2 text-slate-400">
+                    <button class="p-1 hover:text-[#7036ee] transition">
+                      <i data-lucide="package" class="w-4 h-4 text-[#7036ee]"></i>
+                    </button>
+                    <button class="p-1 hover:text-slate-600 transition">
+                      <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Item 7: Guayaba -->
+              <tr class="hover:bg-slate-50/70 transition">
+                <td class="py-3.5 px-4 font-semibold text-slate-800">Guayaba</td>
+                <td class="py-3.5 px-4 text-center text-slate-400">--</td>
+                <td class="py-3.5 px-4 text-center text-slate-400">--</td>
+                <td class="py-3.5 px-4 text-right text-slate-600">6,00/Kg.</td>
+                <td class="py-3.5 px-4 text-right text-slate-700">8,5 Kg.</td>
+                <td class="py-3.5 px-4 text-right font-bold text-slate-800">$51.00</td>
+                <td class="py-3.5 px-4 text-right">
+                  <div class="flex items-center justify-end gap-2 text-slate-400">
+                    <button class="p-1 hover:text-[#7036ee] transition">
+                      <i data-lucide="package" class="w-4 h-4 text-[#7036ee]"></i>
+                    </button>
+                    <button class="p-1 hover:text-slate-600 transition">
+                      <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- ==================== BOTÓN FLOTANTE DE SOPORTE / CHAT ==================== -->
+  <button id="chatFloatingBtn" class="chat-floating-btn fixed bottom-6 right-6 w-12 h-12 rounded-full text-white flex items-center justify-center z-40 transition cursor-pointer" aria-label="Soporte y Chat">
+    <i data-lucide="message-square" class="w-5 h-5"></i>
+  </button>
+
+  <!-- ==================== MODAL: INGRESO A INVENTARIO ==================== -->
+  <div id="ingressModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs hidden">
+    <div class="modal-content-box bg-white rounded-2xl shadow-2xl border border-slate-100 w-full max-w-lg p-6 transform scale-95 opacity-0 transition-all duration-200">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-orange-100 text-coral-500 flex items-center justify-center">
+            <i data-lucide="arrow-down" class="w-4 h-4 text-[#ff5e62]"></i>
+          </div>
+          <h3 class="text-base font-bold text-slate-800">Ingreso a Inventario</h3>
+        </div>
+        <button id="closeIngressModalBtn" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="ingressForm" class="mt-4 space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1" for="itemNombre">Nombre del Producto / Ítem</label>
+          <input type="text" id="itemNombre" required placeholder="Ej. Batería 12V, Amortiguador Y..." class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1" for="itemSku">SKU (Opcional)</label>
+            <input type="text" id="itemSku" placeholder="Ej. ART-0042" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1" for="itemCategoria">Categoría</label>
+            <input type="text" id="itemCategoria" placeholder="Ej. Repuestos, Víveres..." class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1" for="itemCosto">Costo Unitario ($)</label>
+            <input type="number" step="0.01" id="itemCosto" required placeholder="0.00" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1" for="itemPrecioVenta">Precio de Venta ($)</label>
+            <input type="number" step="0.01" id="itemPrecioVenta" placeholder="0.00" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1" for="itemCantidad">Cantidad Inicial</label>
+            <input type="number" step="0.1" id="itemCantidad" required placeholder="1" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1" for="itemUnidad">Unidad</label>
+            <select id="itemUnidad" class="w-full text-sm px-3 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+              <option value="unidades">unidades</option>
+              <option value="Und.">Und.</option>
+              <option value="mts.">mts.</option>
+              <option value="Kg.">Kg.</option>
+              <option value="Lts.">Lts.</option>
+              <option value="Pza.">Pza.</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1" for="itemStockMin">Stock Mínimo Alerta</label>
+            <input type="number" id="itemStockMin" value="5" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
+          <button type="button" id="cancelIngressModalBtn" class="px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-100 transition">
+            Cancelar
+          </button>
+          <button type="submit" class="btn-coral-gradient px-5 py-2 text-white text-sm font-semibold rounded-xl shadow-md transition">
+            Registrar Ingreso
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: NUEVA VENTA (Global) ==================== -->
+  <div id="newSaleModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs hidden">
+    <div class="modal-content-box bg-white rounded-2xl shadow-2xl border border-slate-100 w-full max-w-md p-6 transform scale-95 opacity-0 transition-all duration-200">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-purple-100 text-[#7036ee] flex items-center justify-center">
+            <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+          </div>
+          <h3 class="text-base font-bold text-slate-800">Registrar Nueva Venta</h3>
+        </div>
+        <button id="closeModalBtn" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="newSaleForm" class="mt-4 space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1" for="saleClient">Cliente</label>
+          <input type="text" id="saleClient" required value="Consumidor Final" placeholder="Nombre del cliente o razón social" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1" for="saleProductSelect">Producto / Servicio</label>
+          <select id="saleProductSelect" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+            <option value="">Cargando productos de Supabase...</option>
+          </select>
+          <p id="productStockBadge" class="text-[11px] text-slate-500 mt-1"></p>
+
+          <div id="customProductContainer" class="hidden mt-2">
+            <input type="text" id="saleProduct" placeholder="Escribe el nombre del ítem manual..." class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1" for="saleQuantity">Cantidad</label>
+            <input type="number" id="saleQuantity" min="1" value="1" required class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1" for="salePrice">Precio Unitario ($)</label>
+            <input type="number" step="0.01" id="salePrice" placeholder="0.00" required class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1" for="saleChannel">Canal de Venta</label>
+            <select id="saleChannel" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+              <option value="Local">Local</option>
+              <option value="Delivery">Delivery</option>
+              <option value="WhatsApp">WhatsApp</option>
+              <option value="Web">Web</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1" for="salePaymentMethod">Método de Pago</label>
+            <select id="salePaymentMethod" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+              <option value="Efectivo">Efectivo ($ / Bs.)</option>
+              <option value="Pago Móvil">Pago Móvil</option>
+              <option value="Transferencia">Transferencia bancaria</option>
+              <option value="Zelle">Zelle / PayPal</option>
+              <option value="Tarjeta / POS">Tarjeta / POS</option>
+              <option value="Crédito">Crédito (Por cobrar)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1" for="saleStatus">Estado de la Orden</label>
+          <select id="saleStatus" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+            <option value="completada">Completada (Pagada y Despachada)</option>
+            <option value="pendiente">Pendiente (Por cobrar / Entregar)</option>
+          </select>
+        </div>
+
+        <!-- Previsualización de Total -->
+        <div class="bg-purple-50/70 border border-purple-100 rounded-xl p-3 flex items-center justify-between">
+          <span class="text-xs font-semibold text-purple-700">Total de la Orden:</span>
+          <span id="saleTotalPreview" class="text-lg font-black text-[#7036ee]">$0.00</span>
+        </div>
+
+        <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
+          <button type="button" id="cancelModalBtn" class="px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-100 transition">
+            Cancelar
+          </button>
+          <button type="submit" class="px-5 py-2 bg-[#7036ee] hover:bg-[#5f2ad3] text-white text-sm font-semibold rounded-xl shadow-md shadow-purple-500/25 transition">
+            Guardar Venta
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <!-- SDK de Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Cliente y métodos de BG -->
+  <script src="js/supabase-client.js"></script>
+  <!-- Lógica de interfaz general -->
+  <script src="js/app.js"></script>
+</body>
+</html>
+

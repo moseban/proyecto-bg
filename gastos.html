@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gastos Fijos y Variables - Auto Repuestos BG III</title>
+  <!-- Favicon / Logo en pestaña -->
+  <link rel="icon" type="image/jpeg" href="img/logo.jpg">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="img/logo.jpg">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="css/styles.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              500: '#8b5cf6',
+              600: '#7036ee',
+              700: '#5f2ad3',
+            },
+            coral: {
+              400: '#ff8a70',
+              500: '#ff7657',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#f7f8fc] text-slate-800 antialiased min-h-screen flex flex-col">
+
+  <!-- ==================== HEADER SUPERIOR ==================== -->
+  <header class="bg-white border-b border-slate-100 h-16 sticky top-0 z-30 px-4 md:px-6 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <button id="sidebarToggleBtn" class="p-2 rounded-lg hover:bg-slate-100 text-slate-600 transition" aria-label="Abrir menú">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+
+      <a href="index.html" class="flex items-center gap-2.5 select-none group">
+        <img src="img/logo.jpg" alt="Logo Auto Repuestos BG III" class="w-8 h-8 rounded-full object-cover border border-slate-200 shadow-sm group-hover:scale-105 transition-transform">
+        <div class="flex items-center">
+          <span class="text-[#7036ee] font-black text-xl tracking-tighter">///</span>
+          <span class="text-[#7036ee] font-extrabold text-xl tracking-tight ml-1">BG</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <button class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-200 flex items-center justify-center text-slate-600 transition shadow-sm" aria-label="Perfil de usuario">
+        <i data-lucide="user" class="w-5 h-5"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== CONTENEDOR PRINCIPAL ==================== -->
+  <div class="flex flex-1 relative overflow-hidden">
+    <div id="sidebarBackdrop" class="fixed inset-0 bg-slate-900/40 z-30 hidden md:hidden transition-opacity"></div>
+
+    <!-- ==================== SIDEBAR ==================== -->
+    <aside id="sidebar" class="fixed md:static inset-y-0 left-0 top-16 md:top-0 z-40 w-64 bg-white border-r border-slate-100 flex flex-col justify-between p-4 transition-transform duration-300 transform -translate-x-full md:translate-x-0 h-[calc(100vh-4rem)] overflow-y-auto">
+      <div class="space-y-6">
+        <button class="btn-open-sale-modal w-full bg-[#7036ee] hover:bg-[#5f2ad3] text-white font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 shadow-md shadow-purple-500/20 transition-all active:scale-[0.98]">
+          <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+          <span>Nueva venta</span>
+        </button>
+
+        <!-- Sección HOME -->
+        <div>
+          <span class="text-[11px] font-bold text-slate-400 tracking-wider uppercase px-3">HOME</span>
+          <nav class="mt-2 space-y-1">
+            <a href="index.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition">
+              <i data-lucide="home" class="w-4 h-4 text-slate-400"></i>
+              <span>Home</span>
+            </a>
+          </nav>
+        </div>
+
+        <!-- Sección MÓDULOS -->
+        <div>
+          <span class="text-[11px] font-bold text-slate-400 tracking-wider uppercase px-3">MÓDULOS</span>
+          <nav class="mt-2 space-y-1">
+            <!-- Ventas -->
+            <div class="space-y-1">
+              <button class="sidebar-dropdown-btn w-full flex items-center justify-between px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition cursor-pointer" data-dropdown-target="ventasSubmenu">
+                <div class="flex items-center gap-3">
+                  <i data-lucide="shopping-cart" class="w-4 h-4 text-slate-400"></i>
+                  <span>Ventas</span>
+                </div>
+                <i data-lucide="chevron-right" class="dropdown-chevron w-4 h-4 text-slate-400 transition-transform duration-200"></i>
+              </button>
+              <div id="ventasSubmenu" class="submenu-tree space-y-1 py-1 hidden">
+                <a href="ventas.html" class="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-[#7036ee] rounded-lg transition">Nueva venta</a>
+                <a href="canales-ventas.html" class="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 rounded-lg transition">Canales de ventas</a>
+              </div>
+            </div>
+
+            <!-- Inventario -->
+            <div class="space-y-1">
+              <button class="sidebar-dropdown-btn w-full flex items-center justify-between px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition cursor-pointer" data-dropdown-target="inventarioSubmenu">
+                <div class="flex items-center gap-3">
+                  <i data-lucide="package" class="w-4 h-4 text-slate-400"></i>
+                  <span>Inventario</span>
+                </div>
+                <i data-lucide="chevron-right" class="dropdown-chevron w-4 h-4 text-slate-400 transition-transform duration-200"></i>
+              </button>
+              <div id="inventarioSubmenu" class="submenu-tree space-y-1 py-1 hidden">
+                <a href="inventario.html" class="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-[#7036ee] rounded-lg transition">Inventario</a>
+                <a href="recetas-combos.html" class="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 rounded-lg transition">Recetas/Combos</a>
+                <a href="registros-inventario.html" class="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 rounded-lg transition">Registros</a>
+              </div>
+            </div>
+
+            <!-- Cuentas -->
+            <a href="cuentas.html" class="flex items-center justify-between px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition">
+              <div class="flex items-center gap-3">
+                <i data-lucide="credit-card" class="w-4 h-4 text-slate-400"></i>
+                <span>Cuentas</span>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+            </a>
+
+            <!-- Resumen Financiero (Desplegado y Activo en Gastos) -->
+            <div class="space-y-1">
+              <button class="sidebar-dropdown-btn w-full flex items-center justify-between px-3 py-2 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-50 transition cursor-pointer" data-dropdown-target="finanzasSubmenu">
+                <div class="flex items-center gap-2.5">
+                  <i data-lucide="file-text" class="w-4 h-4 text-[#7036ee]"></i>
+                  <span class="text-[#7036ee]">Resumen Financiero</span>
+                  <span class="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border-[1.5px] border-[#7036ee]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#7036ee]"></span>
+                  </span>
+                </div>
+                <i data-lucide="chevron-down" class="dropdown-chevron w-4 h-4 text-slate-400 transition-transform duration-200"></i>
+              </button>
+              <div id="finanzasSubmenu" class="submenu-tree space-y-1 py-1">
+                <a href="resumen-financiero.html" class="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-[#7036ee] rounded-lg transition">Utilidad/Perdida</a>
+                <a href="gastos.html" class="block px-3 py-1.5 text-xs font-bold text-[#7036ee] bg-purple-50/60 rounded-lg transition">Gastos fijos/variables</a>
+                <a href="reportes.html" class="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 rounded-lg transition">Reportes</a>
+              </div>
+            </div>
+          </nav>
+        </div>
+
+        <!-- CONFIGURACIÓN -->
+        <div>
+          <span class="text-[11px] font-bold text-slate-400 tracking-wider uppercase px-3">CONFIGURACIÓN</span>
+          <nav class="mt-2 space-y-1">
+            <a href="comercio.html" class="flex items-center justify-between px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition">
+              <div class="flex items-center gap-3">
+                <i data-lucide="user" class="w-4 h-4 text-slate-400"></i>
+                <span>Cuenta</span>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+            </a>
+          </nav>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-slate-100 text-xs text-slate-400 text-center">
+        <span>BG Cloud v2.4</span>
+      </div>
+    </aside>
+
+    <!-- ==================== CONTENIDO PRINCIPAL: GASTOS ==================== -->
+    <main class="flex-1 p-4 md:p-8 overflow-y-auto max-w-[1400px] mx-auto w-full">
+
+      <!-- Título de sección y Estado DB -->
+      <div class="flex items-center justify-between mb-6 flex-wrap gap-3">
+        <div class="flex items-center gap-3">
+          <div class="flex items-center gap-2">
+            <i data-lucide="receipt" class="w-5 h-5 text-slate-700"></i>
+            <h1 class="text-base md:text-lg font-extrabold text-slate-800 tracking-wider uppercase">CONTROL DE GASTOS FIJOS & VARIABLES</h1>
+          </div>
+          <div id="dbStatusBadge" class="bg-emerald-50 text-emerald-700 font-semibold text-xs py-1.5 px-3 rounded-full border border-emerald-200 flex items-center gap-1.5 shadow-2xs">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Supabase Conectado</span>
+          </div>
+        </div>
+        <a href="#" class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#7036ee] hover:underline bg-purple-50 px-2.5 py-1 rounded-full border border-purple-100">
+          <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+          <span>Ayuda</span>
+        </a>
+      </div>
+
+      <!-- Fila 1: Botones de Acción -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-6">
+        <button id="openExpenseModalBtn" class="btn-coral-gradient w-full text-white font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-sm shadow-xs transition active:scale-[0.98]">
+          <i data-lucide="minus-circle" class="w-4 h-4"></i>
+          <span>Registrar Nuevo Gasto</span>
+        </button>
+
+        <button class="w-full bg-white hover:bg-purple-50/50 text-[#7036ee] border border-[#7036ee] font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-sm transition active:scale-[0.98]">
+          <i data-lucide="calendar-clock" class="w-4 h-4"></i>
+          <span>Gastos Recurrentes</span>
+        </button>
+
+        <button class="w-full bg-white hover:bg-purple-50/50 text-[#7036ee] border border-[#7036ee] font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-sm transition active:scale-[0.98]">
+          <i data-lucide="target" class="w-4 h-4"></i>
+          <span>Presupuesto vs Real</span>
+        </button>
+
+        <button id="downloadReportBtn" class="w-full bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-sm transition active:scale-[0.98]">
+          <i data-lucide="file-spreadsheet" class="w-4 h-4 text-slate-500"></i>
+          <span>Exportar Egresos</span>
+        </button>
+      </div>
+
+      <!-- Fila 2: Resumen de Gastos (KPIs) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-6">
+        <div class="bg-gradient-to-br from-[#7439ee] to-[#8c4bf8] text-white rounded-2xl p-5 shadow-sm flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-purple-100">Total Gastos Registrados</span>
+            <i data-lucide="receipt" class="w-5 h-5 text-purple-200"></i>
+          </div>
+          <div class="mt-4">
+            <div id="expenseTotalKpi" class="text-2xl lg:text-3xl font-extrabold tracking-tight">$0.00</div>
+            <div class="mt-2 text-xs text-purple-200">En base de datos</div>
+          </div>
+        </div>
+
+        <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-slate-700">Gastos Fijos</span>
+            <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
+          </div>
+          <div class="mt-4">
+            <div id="expenseFixedKpi" class="text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight">$0.00</div>
+            <div id="expenseFixedSub" class="mt-2 text-xs text-slate-400">Alquiler, sueldos y servicios</div>
+          </div>
+        </div>
+
+        <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-slate-700">Gastos Variables</span>
+            <span class="w-2.5 h-2.5 rounded-full bg-orange-500"></span>
+          </div>
+          <div class="mt-4">
+            <div id="expenseVariableKpi" class="text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight">$0.00</div>
+            <div id="expenseVariableSub" class="mt-2 text-xs text-slate-400">Empaques, envíos y publicidad</div>
+          </div>
+        </div>
+
+        <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-slate-700">Presupuesto Restante</span>
+            <i data-lucide="shield-check" class="w-5 h-5 text-emerald-500"></i>
+          </div>
+          <div class="mt-4">
+            <div id="expenseBudgetKpi" class="text-2xl lg:text-3xl font-extrabold text-emerald-600 tracking-tight">$0.00</div>
+            <div class="mt-2 text-xs text-slate-400">Meta base: $1,800.00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila 3: Tabla de Desglose de Gastos -->
+      <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden mb-12">
+        <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+          <div>
+            <h2 class="text-base font-bold text-slate-800">Listado de Gastos Registrados</h2>
+            <p class="text-xs text-slate-400">Control cronológico con comprobante de pago</p>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table id="expensesTable" class="w-full text-left border-collapse text-xs md:text-sm">
+            <thead>
+              <tr class="bg-slate-50/70 border-b border-slate-100 text-slate-500 font-semibold text-xs">
+                <th class="py-3 px-5">Concepto</th>
+                <th class="py-3 px-4">Categoría</th>
+                <th class="py-3 px-4 text-center">Tipo</th>
+                <th class="py-3 px-4">Método de Pago</th>
+                <th class="py-3 px-4 text-right">Monto ($)</th>
+                <th class="py-3 px-4 text-center">Estado</th>
+                <th class="py-3 px-4 text-right"></th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr class="hover:bg-slate-50/50">
+                <td class="py-3.5 px-5 font-bold text-slate-800">Alquiler Local Comercial</td>
+                <td class="py-3.5 px-4 text-slate-600">Instalaciones</td>
+                <td class="py-3.5 px-4 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-blue-50 text-blue-600">Gasto Fijo</span></td>
+                <td class="py-3.5 px-4 text-slate-600">Transferencia Bancaria</td>
+                <td class="py-3.5 px-4 text-right font-extrabold text-slate-900">$450.00</td>
+                <td class="py-3.5 px-4 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-600">Pagado</span></td>
+              </tr>
+              <tr class="hover:bg-slate-50/50">
+                <td class="py-3.5 px-5 font-bold text-slate-800">Nómina Colaboradores (Quincena)</td>
+                <td class="py-3.5 px-4 text-slate-600">Personal</td>
+                <td class="py-3.5 px-4 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-blue-50 text-blue-600">Gasto Fijo</span></td>
+                <td class="py-3.5 px-4 text-slate-600">Efectivo / Zelle</td>
+                <td class="py-3.5 px-4 text-right font-extrabold text-slate-900">$480.00</td>
+                <td class="py-3.5 px-4 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-600">Pagado</span></td>
+              </tr>
+              <tr class="hover:bg-slate-50/50">
+                <td class="py-3.5 px-5 font-bold text-slate-800">Servicios (Electricidad e Internet)</td>
+                <td class="py-3.5 px-4 text-slate-600">Servicios Básicos</td>
+                <td class="py-3.5 px-4 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-blue-50 text-blue-600">Gasto Fijo</span></td>
+                <td class="py-3.5 px-4 text-slate-600">Pago Móvil</td>
+                <td class="py-3.5 px-4 text-right font-extrabold text-slate-900">$125.00</td>
+                <td class="py-3.5 px-4 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-amber-50 text-amber-600">Por Vencer</span></td>
+              </tr>
+              <tr class="hover:bg-slate-50/50">
+                <td class="py-3.5 px-5 font-bold text-slate-800">Empaques, Bolsas y Vasos Delivery</td>
+                <td class="py-3.5 px-4 text-slate-600">Operaciones</td>
+                <td class="py-3.5 px-4 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-orange-50 text-orange-600">Variable</span></td>
+                <td class="py-3.5 px-4 text-slate-600">Efectivo ($)</td>
+                <td class="py-3.5 px-4 text-right font-extrabold text-slate-900">$95.00</td>
+                <td class="py-3.5 px-4 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-600">Pagado</span></td>
+              </tr>
+              <tr class="hover:bg-slate-50/50">
+                <td class="py-3.5 px-5 font-bold text-slate-800">Publicidad en Instagram & Facebook</td>
+                <td class="py-3.5 px-4 text-slate-600">Marketing</td>
+                <td class="py-3.5 px-4 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-orange-50 text-orange-600">Variable</span></td>
+                <td class="py-3.5 px-4 text-slate-600">Tarjeta Débito</td>
+                <td class="py-3.5 px-4 text-right font-extrabold text-slate-900">$65.00</td>
+                <td class="py-3.5 px-4 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-600">Pagado</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Botón Flotante Chat -->
+  <button id="chatFloatingBtn" class="chat-floating-btn fixed bottom-6 right-6 w-12 h-12 rounded-full text-white flex items-center justify-center z-40 transition cursor-pointer" aria-label="Soporte y Chat">
+    <i data-lucide="message-square" class="w-5 h-5"></i>
+  </button>
+
+  <!-- Modal Registrar Gasto -->
+  <div id="expenseModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs hidden">
+    <div class="modal-content-box bg-white rounded-2xl shadow-2xl border border-slate-100 w-full max-w-md p-6 transform scale-95 opacity-0 transition-all duration-200">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center">
+            <i data-lucide="minus-circle" class="w-4 h-4"></i>
+          </div>
+          <h3 class="text-base font-bold text-slate-800">Registrar Nuevo Gasto</h3>
+        </div>
+        <button id="closeExpenseModalBtn" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="expenseForm" class="mt-4 space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1" for="expenseConcept">Concepto del Gasto</label>
+          <input type="text" id="expenseConcept" required placeholder="Ej. Pago de Alquiler, Luz, Empaques..." class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1" for="expenseCategory">Categoría</label>
+            <select id="expenseCategory" class="w-full text-sm px-3 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+              <option value="Instalaciones">Instalaciones (Alquiler/Mantenimiento)</option>
+              <option value="Personal">Personal (Nómina/Sueldos)</option>
+              <option value="Servicios Básicos">Servicios Básicos (Luz, Agua, Internet)</option>
+              <option value="Operaciones">Operaciones (Empaques/Insumos)</option>
+              <option value="Marketing">Marketing / Publicidad</option>
+              <option value="Impuestos">Impuestos / Tasas</option>
+              <option value="Otro">Otro Gasto</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1" for="expenseType">Tipo de Gasto</label>
+            <select id="expenseType" class="w-full text-sm px-3 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+              <option value="fijo">Gasto Fijo</option>
+              <option value="variable">Gasto Variable</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1" for="expenseAmount">Monto ($)</label>
+            <input type="number" step="0.01" id="expenseAmount" required placeholder="0.00" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1" for="expensePayment">Método de Pago</label>
+            <select id="expensePayment" class="w-full text-sm px-3 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+              <option value="Transferencia">Transferencia Bancaria</option>
+              <option value="Efectivo">Efectivo ($ / Bs.)</option>
+              <option value="Pago Móvil">Pago Móvil</option>
+              <option value="Zelle">Zelle / USD</option>
+              <option value="Tarjeta">Tarjeta Débito/Crédito</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1" for="expenseStatus">Estado</label>
+          <select id="expenseStatus" class="w-full text-sm px-3 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#7036ee]/30 focus:border-[#7036ee] transition">
+            <option value="pagado">Pagado</option>
+            <option value="pendiente">Pendiente / Por Vencer</option>
+          </select>
+        </div>
+
+        <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
+          <button type="button" id="cancelExpenseModalBtn" class="px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-100 transition">Cancelar</button>
+          <button type="submit" class="px-5 py-2 bg-rose-500 hover:bg-rose-600 text-white text-sm font-semibold rounded-xl shadow-md transition">Guardar Gasto</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <!-- SDK de Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Cliente y métodos de BG -->
+  <script src="js/supabase-client.js"></script>
+  <!-- Lógica de interfaz general -->
+  <script src="js/app.js"></script>
+</body>
+</html>
+

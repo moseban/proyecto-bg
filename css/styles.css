@@ -1,0 +1,135 @@
+﻿/* Estilos personalizados para el Dashboard BG */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --primary-purple: #7036ee;
+  --primary-purple-hover: #5f2ad3;
+  --primary-purple-light: #f3effe;
+  --purple-gradient: linear-gradient(135deg, #7839ee 0%, #8c4bf8 100%);
+  --coral-accent: #ff7657;
+  --bg-dashboard: #f7f8fc;
+  --text-dark: #191c21;
+  --text-muted: #747d8c;
+  --card-border: #edf0f5;
+  --radius-card: 18px;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--bg-dashboard);
+  color: var(--text-dark);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar estilizada */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Tarjetas con borde de acento coral en el lateral izquierdo */
+.card-coral-stripe {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-coral-stripe::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 14px;
+  bottom: 14px;
+  width: 4px;
+  background-color: var(--coral-accent);
+  border-radius: 0 4px 4px 0;
+}
+
+/* Botón flotante pulsante suave */
+.chat-floating-btn {
+  background-color: var(--coral-accent);
+  box-shadow: 0 8px 20px rgba(255, 118, 87, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.chat-floating-btn:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 10px 25px rgba(255, 118, 87, 0.45);
+}
+
+/* Estilo de la píldora de alerta de stock */
+.low-stock-pill {
+  background-color: #fdf5f0;
+  border: 1px solid #fae4d7;
+  transition: all 0.2s ease;
+}
+.low-stock-pill:hover {
+  background-color: #faebe2;
+}
+
+/* Cuadros de productos más vendidos */
+.best-seller-box {
+  border: 1.5px solid #d9d2ec;
+  border-radius: 14px;
+  transition: all 0.2s ease;
+}
+.best-seller-box:hover {
+  border-color: var(--primary-purple);
+  box-shadow: 0 4px 14px rgba(112, 54, 238, 0.08);
+}
+
+/* Items de listas de cuentas */
+.account-item-row {
+  border-bottom: 1px solid #f1f3f7;
+  transition: background-color 0.15s ease;
+}
+.account-item-row:last-child {
+  border-bottom: none;
+}
+.account-item-row:hover {
+  background-color: #fafbfe;
+}
+
+/* Animación de apertura de modal */
+.modal-overlay {
+  transition: opacity 0.25s ease;
+}
+.modal-content-box {
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* Botón gradiente para Ingreso a Inventario */
+.btn-coral-gradient {
+  background: linear-gradient(90deg, #ff5e62 0%, #ff7657 100%);
+  transition: all 0.2s ease;
+}
+.btn-coral-gradient:hover {
+  background: linear-gradient(90deg, #f04e52 0%, #fa6543 100%);
+  box-shadow: 0 4px 14px rgba(255, 94, 98, 0.3);
+}
+
+/* Línea de árbol vertical para submenú */
+.submenu-tree {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-left: 1rem;
+}
+.submenu-tree::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 8px;
+  width: 1.5px;
+  background-color: #e2e8f0;
+}
+
+
