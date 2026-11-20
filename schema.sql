@@ -119,17 +119,10 @@ CREATE POLICY "Acceso total gastos" ON gastos FOR ALL USING (true) WITH CHECK (t
 CREATE POLICY "Acceso total cuentas" ON cuentas FOR ALL USING (true) WITH CHECK (true);
 CREATE POLICY "Acceso total configuracion" ON configuracion FOR ALL USING (true) WITH CHECK (true);
 
--- 10. DATOS INICIALES DE PRUEBA (Opcional para ver datos reales de inmediato)
+-- 10. DATOS INICIALES DE CONFIGURACIÓN
 INSERT INTO configuracion (id, nombre_comercial, rif, telefono, email, direccion, moneda, tasa_cambio, iva)
 VALUES ('config_global', 'Auto Repuestos BG III C.A.', 'J-40615751-1', '+58 412-1234567', 'autorepuestosbg3@gmail.com', 'Calle Principal, Local Auto Repuestos BG III', 'USD', 39.50, 16.00)
 ON CONFLICT (id) DO UPDATE SET
   nombre_comercial = EXCLUDED.nombre_comercial,
   rif = EXCLUDED.rif;
-
-INSERT INTO productos (sku, nombre, categoria, precio_costo, precio_venta, stock_actual, stock_minimo, unidad_medida) VALUES
-('HAM-001', 'Hamburguesa Doble BG', 'Comida', 3.50, 8.50, 42, 10, 'unidades'),
-('PAP-002', 'Papas Rústicas Crispy', 'Acompañantes', 0.80, 2.50, 8, 15, 'unidades'),
-('REF-003', 'Refresco Cola 500ml', 'Bebidas', 0.60, 1.75, 65, 20, 'unidades'),
-('SAL-004', 'Salsa Especial BG 250ml', 'Salsas', 1.20, 3.00, 3, 5, 'unidades')
-ON CONFLICT (sku) DO NOTHING;
 

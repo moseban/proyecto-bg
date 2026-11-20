@@ -272,58 +272,10 @@ async function apiEliminarVenta(ventaId) {
 }
 
 /**
- * Sembrar datos de ventas iniciales si la tabla está completamente vacía
+ * Sembrar datos de ventas iniciales (deshabilitado para modo producción limpio)
  */
 async function apiSembrarVentasInicialesSiVacio(productos) {
-  if (!window.supabaseClient) return;
-
-  const { data: existentes } = await window.supabaseClient
-    .from('ventas')
-    .select('id')
-    .limit(1);
-
-  if (existentes && existentes.length > 0) return; // Ya contiene ventas
-
-  console.log('🌱 Inicializando ventas de demostración en Supabase...');
-
-  const prod1 = productos?.[0];
-  const prod2 = productos?.[1];
-  const prod3 = productos?.[2];
-
-  const ventasMuestra = [
-    {
-      cliente: 'Gabriel Rodríguez',
-      canal: 'Delivery',
-      metodoPago: 'Pago Móvil',
-      estado: 'completada',
-      items: [{ producto_id: prod1?.id || null, cantidad: 2, precio_unitario: prod1 ? prod1.precio_venta : 8.50, nombre: prod1?.nombre || 'Hamburguesa Doble BG' }],
-      total: (prod1 ? prod1.precio_venta * 2 : 17.00)
-    },
-    {
-      cliente: 'Alejandro Fariña',
-      canal: 'Local',
-      metodoPago: 'Efectivo',
-      estado: 'completada',
-      items: [{ producto_id: prod2?.id || null, cantidad: 1, precio_unitario: prod2 ? prod2.precio_venta : 2.50, nombre: prod2?.nombre || 'Papas Rústicas Crispy' }],
-      total: (prod2 ? prod2.precio_venta : 2.50)
-    },
-    {
-      cliente: 'María Fernanda',
-      canal: 'WhatsApp',
-      metodoPago: 'Crédito',
-      estado: 'pendiente',
-      items: [{ producto_id: prod3?.id || null, cantidad: 3, precio_unitario: prod3 ? prod3.precio_venta : 1.75, nombre: prod3?.nombre || 'Refresco Cola 500ml' }],
-      total: (prod3 ? prod3.precio_venta * 3 : 5.25)
-    }
-  ];
-
-  for (const v of ventasMuestra) {
-    try {
-      await apiRegistrarVenta(v);
-    } catch (e) {
-      console.warn('No se pudo insertar venta muestra:', e);
-    }
-  }
+  return; // Base de datos limpia y lista para datos reales
 }
 
 // ============================================================================
@@ -1059,35 +1011,10 @@ async function apiEliminarGasto(gastoId) {
 }
 
 /**
- * Sembrar gastos de demostración si la tabla está vacía
+ * Sembrar gastos de demostración (deshabilitado para modo producción limpio)
  */
 async function apiSembrarGastosInicialesSiVacio() {
-  if (!window.supabaseClient) return;
-
-  const { data: existentes } = await window.supabaseClient
-    .from('gastos')
-    .select('id')
-    .limit(1);
-
-  if (existentes && existentes.length > 0) return;
-
-  console.log('🌱 Inicializando gastos de demostración en Supabase...');
-
-  const gastosMuestra = [
-    { codigo: 'GST-001', descripcion: 'Alquiler Local Comercial', categoria: 'Instalaciones', tipo: 'fijo', monto: 450.00, metodo_pago: 'Transferencia', estado: 'pagado' },
-    { codigo: 'GST-002', descripcion: 'Nómina Colaboradores (Quincena)', categoria: 'Personal', tipo: 'fijo', monto: 480.00, metodo_pago: 'Transferencia', estado: 'pagado' },
-    { codigo: 'GST-003', descripcion: 'Servicios (Electricidad e Internet)', categoria: 'Servicios Básicos', tipo: 'fijo', monto: 125.00, metodo_pago: 'Pago Móvil', estado: 'pendiente' },
-    { codigo: 'GST-004', descripcion: 'Empaques, Bolsas y Vasos Delivery', categoria: 'Operaciones', tipo: 'variable', monto: 95.00, metodo_pago: 'Efectivo', estado: 'pagado' },
-    { codigo: 'GST-005', descripcion: 'Publicidad en Instagram & Facebook', categoria: 'Marketing', tipo: 'variable', monto: 65.00, metodo_pago: 'Tarjeta', estado: 'pagado' }
-  ];
-
-  for (const g of gastosMuestra) {
-    try {
-      await apiCrearGasto(g);
-    } catch (e) {
-      console.warn('No se pudo insertar gasto muestra:', e);
-    }
-  }
+  return; // Base de datos limpia y lista para datos reales
 }
 
 // ============================================================================
@@ -1524,42 +1451,10 @@ async function apiObtenerCuentas() {
 }
 
 /**
- * Sembrar cuentas de prueba si la tabla cuentas está vacía
+ * Sembrar cuentas de prueba (deshabilitado para modo producción limpio)
  */
 async function apiSembrarCuentasInicialesSiVacio() {
-  if (!window.supabaseClient) return;
-
-  const { data: existentes } = await window.supabaseClient
-    .from('cuentas')
-    .select('id')
-    .limit(1);
-
-  if (existentes && existentes.length > 0) return;
-
-  console.log('🌱 Inicializando cuentas por cobrar/pagar en Supabase...');
-
-  const hoy = new Date();
-  const fechaVenceAyer = new Date(hoy);
-  fechaVenceAyer.setDate(hoy.getDate() - 3);
-  const fechaVencePronto = new Date(hoy);
-  fechaVencePronto.setDate(hoy.getDate() + 5);
-
-  const cuentasMuestra = [
-    { tipo: 'pagar', tercero: 'Franelas Ccs', concepto: 'Franela X', monto_total: 50.00, monto_pagado: 0.00, fecha_vencimiento: fechaVenceAyer.toISOString().split('T')[0], estado: 'vencido' },
-    { tipo: 'pagar', tercero: 'Telas Ccs', concepto: 'Tela X', monto_total: 110.00, monto_pagado: 0.00, fecha_vencimiento: fechaVenceAyer.toISOString().split('T')[0], estado: 'vencido' },
-    { tipo: 'pagar', tercero: 'Amortiguadores Ccs', concepto: 'Amortiguador X', monto_total: 345.00, monto_pagado: 0.00, fecha_vencimiento: fechaVencePronto.toISOString().split('T')[0], estado: 'pendiente' },
-    { tipo: 'cobrar', tercero: 'Alejandro Fariña', concepto: 'Factura #00.004', monto_total: 5.00, monto_pagado: 0.00, fecha_vencimiento: fechaVenceAyer.toISOString().split('T')[0], estado: 'vencido' },
-    { tipo: 'cobrar', tercero: 'Gabriel Rodríguez', concepto: 'Factura #00.006', monto_total: 10.00, monto_pagado: 0.00, fecha_vencimiento: fechaVenceAyer.toISOString().split('T')[0], estado: 'vencido' },
-    { tipo: 'cobrar', tercero: 'Gabriel Rodríguez', concepto: 'Factura #00.008', monto_total: 40.00, monto_pagado: 0.00, fecha_vencimiento: fechaVencePronto.toISOString().split('T')[0], estado: 'pendiente' }
-  ];
-
-  for (const c of cuentasMuestra) {
-    try {
-      await window.supabaseClient.from('cuentas').insert([c]);
-    } catch (e) {
-      console.warn('No se pudo insertar cuenta muestra:', e);
-    }
-  }
+  return; // Base de datos limpia y lista para datos reales
 }
 
 /**
@@ -2667,12 +2562,12 @@ TICKET DE PRUEBA POS (${config.ancho_impresora})
 Fecha: ${new Date().toLocaleString()}
 Atendido por: Gabriel (Admin)
 ----------------------------------------
-1x Hamburguesa Doble BG       $8.50
-1x Papas Rústicas Crispy      $2.50
+1x Filtro de Aceite Millard   $8.50
+1x Pastillas de Freno Delant. $18.50
 ----------------------------------------
-SUBTOTAL:                    $11.00
-IVA (16%):                    $1.76
-TOTAL:                       $12.76
+SUBTOTAL:                    $27.00
+IVA (16%):                    $4.32
+TOTAL:                       $31.32
 Tasa Oficial BCV: Bs. ${Number(config.tasa_cambio).toFixed(2)}
 Total en Bs:      Bs. ${(12.76 * config.tasa_cambio).toFixed(2)}
 ========================================
